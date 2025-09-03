@@ -116,12 +116,6 @@ input[type="number"]:focus {
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
-#submit {
-  height: 60px;
-  padding: 0 25px;
-  font-size: 1.2rem;
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
-}
 
 #feedback {
   height: 30px;
@@ -133,24 +127,6 @@ input[type="number"]:focus {
 
 .correct { color: #27ae60; }
 .incorrect { color: #e74c3c; }
-
-.progress-container {
-  margin: 25px 0;
-}
-
-#progress-bar {
-  height: 10px;
-  background: #e9ecef;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-#progress {
-  height: 100%;
-  background: linear-gradient(90deg, #3498db, #9b59b6);
-  width: 0%;
-  transition: width 0.5s ease;
-}
 
 .stats {
   display: flex;
@@ -176,6 +152,39 @@ input[type="number"]:focus {
   border-radius: 8px;
   font-size: 0.95rem;
 }
+
+
+
+/* 答题页面样式 */
+.progress-container {
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #f0f4ff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+
 
 /* 移动端专属优化 */
 @media (max-width: 600px) {
@@ -203,21 +212,15 @@ input[type="number"]:focus {
       font-size: 1rem;
   }
   
-  .controls {
-      flex-direction: column;
-      gap: 10px;
-  }
-  
-  select, button {
-      width: 100%;
-  }
 }
+
+
 
 /* 动画效果 */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+  20%,60% { transform: translateX(-5px); }
+  40%,80% { transform: translateX(5px);}
 }
 
-.shake { animation: shake 0.5s; }
+.shake { animation: shake 0.7s; }
