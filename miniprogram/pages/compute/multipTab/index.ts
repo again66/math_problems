@@ -46,7 +46,10 @@ Page({
         _bunnyData.push({t:`${i1+1}组`,label:true})
         _GroupData.push(_bunnyData)
     }
-
+      wx.showToast({
+        icon:"none",
+        title:`${i} × ${j} = ${result}`
+      })
       // 更新数据
       this.setData({groupData:_GroupData,explanationHeader:`${i} × ${j} = ${result}`})
   },
