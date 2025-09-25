@@ -58,6 +58,13 @@ Component({
         url: '/pages/about/index'
       })
     },
+
+    goNoteBookFun(){
+      wx.navigateTo({
+        url: '/pages/notebook/index'
+      })
+    },
+    
     goToPage(){
       wx.showToast({
         title: '正在开发...',
@@ -65,6 +72,7 @@ Component({
         duration: 2000
       })
     },
+
     getEmoji(){
       const emojis = [...app.globalData.emojiArray].sort(()=>Math.random()-0.5)
       const index = Math.ceil(Math.random()*10)

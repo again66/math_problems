@@ -8,7 +8,8 @@
     "pages/compute/multip/index",
     "pages/compute/tenFun/index",
     "pages/about/index",
-    "pages/compute/mixAddSub/index"
+    "pages/compute/mixAddSub/index",
+    "pages/notebook/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

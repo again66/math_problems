@@ -63,7 +63,7 @@
     </view>
     
     <!-- 卡通动物 -->
-    <view class="cartoon-animal bunny">{{emo1}}</view>
+    <view class="cartoon-animal bunny" bind:tap="goNoteBookFun">{{emo1}}</view>
     <view class="cartoon-animal panda">{{emo2}}</view>
     
     <!-- 底部 -->
