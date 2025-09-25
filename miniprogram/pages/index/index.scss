@@ -1,6 +1,5 @@
 /**index.scss**/
-page {
-  height: 100vh;
+.page {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -8,7 +7,6 @@ page {
   background-color: #f0f9ff;
   color: #333;
   padding: 15px;
-  max-width: 500px;
   margin: 0 auto;
   position: relative;
   overflow-x: hidden;
@@ -53,12 +51,14 @@ page {
   border: 3px solid transparent;
 }
 
-.grid-item:nth-child(1) { background-color: #ff9ff3; border-color: #f368e0; }
-.grid-item:nth-child(2) { background-color: #feca57; border-color: #ff9f43; }
-.grid-item:nth-child(3) { background-color: #ff6b6b; border-color: #ee5253; }
-.grid-item:nth-child(4) { background-color: #5c7cfa; border-color: #4d69fa; }
-.grid-item:nth-child(5) { background-color: #48dbfb; border-color: #0abde3; }
-.grid-item:nth-child(6) { background-color: #1dd1a1; border-color: #10ac84; }
+.grid-item:nth-child(1) { background-color: #FFB6C1; border-color: #FF69B4; } /* 粉红色 */
+.grid-item:nth-child(2) { background-color: #FFD700; border-color: #FFA500; } /* 金黄色 */
+.grid-item:nth-child(3) { background-color: #98FB98; border-color: #32CD32; } /* 淡绿色 */
+.grid-item:nth-child(4) { background-color: #87CEEB; border-color: #1E90FF; } /* 天蓝色 */
+.grid-item:nth-child(5) { background-color: #FFA07A; border-color: #FF6347; } /* 浅橙色 */
+.grid-item:nth-child(6) { background-color: #DDA0DD; border-color: #BA55D3; } /* 梅红色 */
+.grid-item:nth-child(7) { background-color: #FFEC8B; border-color: #FFD700; } /* 亮黄色 */
+.grid-item:nth-child(8) { background-color: #AFEEEE; border-color: #40E0D0; } /* 青绿色 */
 
 .grid-item:hover {
   transform: translateY(-5px);
@@ -92,6 +92,7 @@ page {
   right: 10px;
   position: absolute;
   font-size: 106rpx;
+  z-index: 999;
 }
 .panda {
   font-size: 106rpx;
@@ -104,7 +105,7 @@ page {
   position: absolute;
   background-image: "../../static/img/cloud.png";
   opacity: 0.9;
-  z-index: -1;
+  z-index: 999;
   font-size: 96rpx;
 }
 

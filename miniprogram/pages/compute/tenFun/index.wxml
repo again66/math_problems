@@ -1,0 +1,13 @@
+
+
+<!-- <view style="width: 100vw; display: flex; margin: 20rpx 0; ">
+  <button type="primary" bind:tap="playAddDemo">凑10法（+）演示</button>
+  <button type="primary" bind:tap="playSubDemo">破10法（-）演示</button>
+</view>
+
+<view style="width: 100vw; height: 90vh; display: flex;">
+  <canvas id="tenPlayDemoCanvas" type="2d" style="border: 1px solid; width: 100%; height: 90%;"></canvas>
+</view> -->
+
+<button type="primary" bind:tap="playbySp">打开视频查看</button>
+<!-- <channel-video class="video" finder-user-name="sphJAvaa4TqNigV" object-fit="cover" feed-id='export/UzFfAgtgekIEAQAAAAAARhcq5g8IsgAAAAstQy6ubaLX4KHWvLEZgBPE9aMkQ2JRBrqPzNPgMJoZA-fvI3tKln9q4sMXn6xE'></channel-video> -->

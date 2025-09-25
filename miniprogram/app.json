@@ -5,7 +5,10 @@
     "pages/compute/simpleAddSub/index",
     "pages/compute/addSub/index",
     "pages/compute/multipTab/index",
-    "pages/compute/multip/index"
+    "pages/compute/multip/index",
+    "pages/compute/tenFun/index",
+    "pages/about/index",
+    "pages/compute/mixAddSub/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

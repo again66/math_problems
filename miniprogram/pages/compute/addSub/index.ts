@@ -57,6 +57,9 @@ Page({
     });
 
     if (this.data.currentIndex > this.data.currentTotal) {
+      this.setData({
+        inputFocus: 100
+      });
       this.finishQuiz();
     } else {
       this.generateNewProblem();

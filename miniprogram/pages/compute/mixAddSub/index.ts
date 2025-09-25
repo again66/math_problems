@@ -1,9 +1,10 @@
-import { getAddSubNums } from '../../../utils/util';
+import { getComplexAddSubNums } from '../../../utils/util';
 Page({
   data: {
     currentRange: 10,
     currentTotal: 50,
     currentProblem: "请选择难度开始练习",
+    problemHis:[],
     correctAnswer: 0,
     currentIndex: 1,
     userAnswer: "",
@@ -41,14 +42,10 @@ Page({
   },
 
   generateNewProblem() {
-    const isAddition = Math.random() > 0.5;
-    let nums = getAddSubNums(this.data.currentRange)
-    var _currentProblem,_correctAnswer;
-    _currentProblem = isAddition ? `${nums[1]} + ${nums[2]} = ` : `${nums[0]} - ${nums[1]} = `;
-    _correctAnswer = isAddition ? nums[0] : nums[2];
+    let p_obj = getComplexAddSubNums(this.data.currentRange)
     this.setData({
-      currentProblem: _currentProblem,
-      correctAnswer: _correctAnswer,
+      currentProblem: p_obj.problem,
+      correctAnswer: p_obj.answer,
       inputFocus: true
     });
   },

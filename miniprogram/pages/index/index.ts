@@ -37,6 +37,27 @@ Component({
         url: '/pages/compute/multip/index'
       })
     },
+    goTotenFun(){
+      // wx.navigateTo({
+      //   url: '/pages/compute/tenFun/index'
+      // })
+      wx.openChannelsActivity({
+        finderUserName:"sphJAvaa4TqNigV",
+        feedId:"export/UzFfAgtgekIEAQAAAAAARhcq5g8IsgAAAAstQy6ubaLX4KHWvLEZgBPE9aMkQ2JRBrqPzNPgMJoZA-fvI3tKln9q4sMXn6xE",
+        nonceId:""
+      })
+    },
+
+    goToMixAdd(){
+      wx.navigateTo({
+        url: '/pages/compute/mixAddSub/index'
+      })
+    },
+    goAboutFun(){
+      wx.navigateTo({
+        url: '/pages/about/index'
+      })
+    },
     goToPage(){
       wx.showToast({
         title: '正在开发...',
