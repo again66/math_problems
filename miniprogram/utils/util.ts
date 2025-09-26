@@ -17,13 +17,15 @@ const formatNumber = (n: number) => {
   const s = n.toString()
   return s[1] ? s : '0' + s
 }
-
 const getNumsByRange = (range: number) => {
-  return Array.from({length: range}, (_,i) => i+1)
-  .reduce((arr,_,i) => (
-      [arr[i], arr[Math.floor(Math.random()*(i+1))]] = 
-      [arr[Math.floor(Math.random()*(i+1))], arr[i]], arr
-  ), [...Array(range).keys()].map(x=>x+1));
+  const arr = Array.from({length: range}, (_, i) => i + 1);
+  
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  
+  return arr;
 }
 
 /**
