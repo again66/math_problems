@@ -24,8 +24,9 @@ Page({
     operator:'*',
     userAnswer : "",
     processSteps:[],
-    errorShake:false,
-    checkResult:{}
+    checked:false,
+    checkResult:{},
+    nullChar:''
   },
 
   startTest(e) {    
@@ -42,14 +43,15 @@ Page({
     this.setData({
       feedbackMessage: "",
       userAnswer: "",
-      inputFocus: 0,
-      errorShake:false
+      focus1:0,
+      focus2:0,
+      checkResult:{},
+      checked:false,
+      processSteps:[],
+      nullChar:''
     });
 
     if (this.data.currentIndex > this.data.currentTotal) {
-      this.setData({
-        inputFocus: 100
-      });
       this.finishQuiz();
     } else {
       this.generateNewProblem();
@@ -129,6 +131,7 @@ Page({
     const formData = e.detail.value;
     const _n = this.data.processSteps.length
     var _checkResult={}
+    var error = false
     for (let i = 0; i < _n; i++) {
       for (let j = 0; j < this.data.processSteps[i].detailSteps.length; j++) {
         var currentDigit = this.data.processSteps[i].detailSteps[j].currentDigit
@@ -137,45 +140,48 @@ Page({
           console.log(i+"-"+j+":验证正确")
         }else{
           _checkResult[i+"-"+j] = true
+          error = true
           console.log(i+"-"+j+":XXXX")
         }
       }
     }
+    var _yourAnswer = "",_correctAnswer=""
     for (let i = 0; i < this.data.correctAnswerArray.length; i++) {
       var _a = this.data.correctAnswerArray[i]
-      if(_a == formData[_n+"-"+i]){
+      var _ua = formData[_n+"-"+i]
+      _yourAnswer += _ua
+      _correctAnswer += _a
+      _checkResult[_n+"-"+i] = _a == _ua ? false:true
+      if(_a == _ua){
         _checkResult[_n+"-"+i] = false
-        console.log(_n+"-"+i+":验证正确--")
+        console.log(_n+"-"+i+":验证正确--",_a)
       }else{
         _checkResult[_n+"-"+i] = true
+        error = true
         console.log(_n+"-"+i+":XXXX--")
       }
     }
-    this.setData({
-      checkResult:_checkResult
-    })
+    if(error){
+      var wqTmp = this.data.wrongQuestions
+      wqTmp.push({"question": this.data.currentProblem,"yourAnswer": _yourAnswer ,"correctAnswer": _correctAnswer})
+      this.setData({
+        checked:true,
+        checkResult:_checkResult,
+        feedbackMessage: `😢答错了！正确答案是 ${_correctAnswer}`,
+        currentIndex: this.data.currentIndex + 1,
+        wrongQuestions: wqTmp
+      });
+    }else{
+      this.setData({
+        checked:true,
+        checkResult:_checkResult,
+        feedbackMessage: `非常正常！相当的棒！`,
+        currentIndex: this.data.currentIndex + 1
+      });
+    }
     console.log('表单数据:', this.data.checkResult);
   },
   
   checkAnswer() {
-
-  if (this.data.userAnswerArray.reverse().join('') != this.data.correctAnswerArray.reverse().join('')) {
-    var wqTmp = this.data.wrongQuestions
-    wqTmp.push({"question": this.data.currentProblem,"yourAnswer": this.data.userAnswerArray.reverse().join(''),"correctAnswer": this.data.correctAnswerArray.reverse().join('')})
-    this.setData({
-      feedbackMessage: `😢答错了！正确答案是 ${this.data.correctAnswerArray.reverse().join('')}`,
-      currentIndex: this.data.currentIndex + 1,
-      wrongQuestions: wqTmp,
-      errorShake:true
-    });
-    setTimeout(() => {
-      this.nextProblem();
-    }, 1500);
-    } else {
-      this.setData({
-        currentIndex: this.data.currentIndex + 1
-      });
-      this.nextProblem();
-    }
   },
 })

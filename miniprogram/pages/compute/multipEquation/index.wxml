@@ -11,9 +11,6 @@
     <view id="feedback">{{feedbackMessage}}</view>
         <!-- 竖式计算区域 -->
         <view class="vertical-equation">
-            <!--计算动画演示 -->
-           
-          <view style="color: rgb(255, 145, 0); font-size: x-large;">开发中...开发中...开发中...</view>
             <!--数字1 -->
             <view class="number-row">
                 <view wx:for="{{num1Array}}" wx:key="index" class="digit-cell {{index==num1Selected?'selected':''}}"  >{{item}}</view>
@@ -30,13 +27,14 @@
             <view class="line"></view>
             
             <!-- 各步骤输入区域（逆向排列） -->
-            <form bindsubmit="onFormSubmit">
+            <form bindsubmit="onFormSubmit" id="multipForm">
               <view wx:for="{{processSteps}}" wx:key="index" class="result-inputs" wx:for-index="outerIndex">
                 <!-- 多步骤计算，分多行，多页 -->
                 <input wx:for="{{item.detailSteps}}"  wx:key="index" type="number" maxlength="1" 
                 data-val="{{item}}" data-index1="{{outerIndex}}" data-index2="{{innerIndex}}"
                 bindinput="inputChange" focus="{{focus1==outerIndex&&focus2==innerIndex}}" 
-                value="{{item.currentDigit}}" wx:for-index="innerIndex"
+
+                wx:for-index="innerIndex"
                 name = "{{outerIndex}}-{{innerIndex}}" class="result-input {{checkResult[outerIndex+'-'+innerIndex]? 'error' : ''}}"/> 
                 <!-- 补0 -->
                 <input  wx:for="{{item.shiftPosition}}"  wx:key="index" class="result-input-dis" value="0" disabled="true" />
@@ -47,10 +45,12 @@
               <view class="result-inputs">
                   <input  wx:for="{{correctAnswerArray}}" wx:key="index" type="number" maxlength="1"
                   data-val="{{item}}" data-index1="{{processSteps.length}}" data-index2="{{index}}"
-                  bindinput="inputChange" focus="{{focus1==processSteps.length&&focus2==index}}"  value="{{item}}"
+                  value="{{nullChar}}"
+                  bindinput="inputChange" focus="{{focus1==processSteps.length&&focus2==index}}"  
                   name = "{{processSteps.length}}-{{index}}" class="result-input {{checkResult[processSteps.length+'-'+index]? 'error' : ''}}"/> 
               </view>
-              <button type="primary" form-type="submit">验证</button>
+              <button wx:if="{{!checked}}" type="primary" form-type="submit">验证</button>
+              <button wx:if="{{checked}}" type="primary" bind:tap="nextProblem">下一题</button>
             </form>
         </view>  
 	</view>
