@@ -166,3 +166,12 @@ export const getComplexMultipProblem = () => {
   }
 }
 
+export const isValidNumber = (value) => {
+  if(value.length>0){
+    const num = Number(value);
+    console.log(num,value)
+    return !isNaN(num);
+  }else{
+    return false
+  }
+}

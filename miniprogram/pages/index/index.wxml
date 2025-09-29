@@ -55,15 +55,15 @@
             <view>凑、破10法</view>
             <view>学习如何凑10和破10的方法</view>
         </view>
-        <view class="grid-item" bind:tap="goAboutFun">
-            <view class="icon">🙋‍♂️</view>
-            <view>关于</view>
-            <view>关于本小程序的说明</view>
+        <view class="grid-item" bind:tap="goMulEquationFun">
+            <view class="icon">*️⃣</view>
+            <view>乘法竖式</view>
+            <view>练习乘法竖式</view>
         </view>
     </view>
     
     <!-- 卡通动物 -->
-    <view class="cartoon-animal bunny" bind:tap="goNoteBookFun">{{emo1}}</view>
+    <view class="cartoon-animal bunny" bind:tap="goAboutFun">{{emo1}}</view>
     <view class="cartoon-animal panda">{{emo2}}</view>
     
     <!-- 底部 -->

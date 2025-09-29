@@ -1,4 +1,5 @@
 // pages/compute/addSub/index.ts
+import { isValidNumber } from '../../../utils/util';
 import { MathOperationAnalyzer, AdditionStep, SubtractionStep } from '../../../utils/MathOperationAnalyzer';
 Page({
 
@@ -102,7 +103,7 @@ Page({
   
   inputChange(e) {
     console.log(e.target.dataset)
-    if(this.isValidNumber(e.detail.value)){
+    if(isValidNumber(e.detail.value)){
       const _userAnswer = parseInt(e.detail.value);
       const _dataSet = e.target.dataset
       var _userAnswerArray = this.data.userAnswerArray
@@ -196,15 +197,4 @@ Page({
         processOfProblemIndex:this.data.processOfProblemIndex+1
       })
   },
-  
-isValidNumber(value) {
-  if(value.length>0){
-    const num = Number(value);
-    console.log(num,value)
-    return !isNaN(num);
-  }else{
-    return false
-  }
-
-},
 })

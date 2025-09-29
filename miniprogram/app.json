@@ -9,7 +9,8 @@
     "pages/about/index",
     "pages/compute/mixAddSub/index",
     "pages/notebook/index",
-    "pages/compute/mixMultip/index"
+    "pages/compute/mixMultip/index",
+    "pages/compute/multipEquation/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

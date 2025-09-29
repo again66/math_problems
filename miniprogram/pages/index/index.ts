@@ -63,6 +63,11 @@ Component({
         url: '/pages/about/index'
       })
     },
+    goMulEquationFun(){
+      wx.navigateTo({
+        url: '/pages/compute/multipEquation/index'
+      })
+    },
 
     goNoteBookFun(){
       wx.navigateTo({
