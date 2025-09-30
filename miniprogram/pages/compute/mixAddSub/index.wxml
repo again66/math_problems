@@ -15,8 +15,8 @@
       <view class="question-ans">
        ? = <input type="number" bindinput="inputChange" value="{{userAnswer}}" focus="{{inputFocus}}" />
       </view>
-      <button id="nextQuestion" type="primary" bindtap="nextProblem">下一题</button>
-    </view>   
+    </view>
+    <button id="nextQuestion" type="primary" bindtap="nextProblem">下一题</button>
   </view>
  <!-- 错题本区域 -->
  <view wx:if="{{showWherePage==2}}" class="container">

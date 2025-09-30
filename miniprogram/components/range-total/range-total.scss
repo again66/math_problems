@@ -2,8 +2,8 @@
 
 h1 {
   color: #2c3e50;
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+  font-size: 1.5rem;
+  margin-bottom: 0;
   position: relative;
   display: inline-block;
 }
@@ -14,13 +14,14 @@ h1 {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin: 20rpx 0;
+  margin: 20rpx 0 40rpx;
   button {
     flex: 1;
     margin: 0 5rpx;
     font-size: 28rpx;
     color: #fff;
     transition: all 0.3s;
+    padding: 15rpx 5rpx;
   }
   button[type="default"] {
     background-color: #f0f0f0;
