@@ -1,0 +1,158 @@
+/* 添加新的样式 */
+.images-section {
+  background: white;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.image-viewer {
+  border: 2rpx solid #f0f0f0;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.image-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.nav-btn {
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  padding: 16rpx 24rpx;
+  font-size: 24rpx;
+}
+
+.nav-info {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.current-image-container {
+  padding: 30rpx;
+  text-align: center;
+  background: white;
+}
+
+.current-image {
+  width: 100%;
+  max-width: 600rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.image-info {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+}
+
+.image-type, .image-page {
+  font-size: 26rpx;
+  color: #666;
+  background: #f8f9fa;
+  padding: 8rpx 16rpx;
+  border-radius: 6rpx;
+}
+
+.image-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-top: 1rpx solid #e0e0e0;
+}
+
+.action-btn.small {
+  padding: 12rpx 20rpx;
+  font-size: 22rpx;
+}
+
+.action-btn.secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.action-btn.primary {
+  background: #007aff;
+  color: white;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  padding: 20rpx;
+  background: white;
+  border-top: 1rpx solid #f0f0f0;
+  justify-content: center;
+}
+
+.thumbnail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12rpx;
+  border: 2rpx solid transparent;
+  border-radius: 8rpx;
+  transition: all 0.3s;
+}
+
+.thumbnail-item.active {
+  border-color: #007aff;
+  background: #f0f8ff;
+}
+
+.thumbnail-image {
+  width: 80rpx;
+  height: 100rpx;
+  border-radius: 4rpx;
+  border: 1rpx solid #e0e0e0;
+}
+
+.thumbnail-label {
+  font-size: 20rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .image-nav {
+    flex-direction: column;
+    gap: 16rpx;
+  }
+  
+  .thumbnails {
+    gap: 12rpx;
+  }
+  
+  .thumbnail-image {
+    width: 60rpx;
+    height: 80rpx;
+  }
+}

@@ -69,7 +69,8 @@ Component({
     },
     goAboutFun(){
       wx.navigateTo({
-        url: '/pages/about/index'
+        // url: '/pages/about/index'
+        url: '/pages/arithmetic/arithmetic'
       })
     },
     goMulEquationFun(){

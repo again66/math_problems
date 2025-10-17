@@ -1,0 +1,220 @@
+<!-- pages/arithmetic/arithmetic.wxml -->
+<view class="container">
+  <!-- 配置面板 -->
+  <view class="config-panel">
+    <view class="panel-title">题目设置</view>
+    
+    <view class="config-group">
+      <view class="config-item">
+        <text class="label">题目数量</text>
+        <view class="quick-buttons">
+          <button 
+            wx:for="{{[20, 40, 60]}}" 
+            wx:key="*this"
+            class="quick-btn {{config.problemCount == item ? 'active' : ''}}"
+            bindtap="setQuickCount"
+            data-count="{{item}}"
+          >
+            {{item}}题
+          </button>
+        </view>
+        <input 
+          type="number" 
+          value="{{config.problemCount}}" 
+          bindinput="updateConfig"
+          data-field="problemCount"
+          class="number-input"
+        />
+      </view>
+
+      <view class="config-item">
+        <text class="label">数字范围</text>
+        <view class="range-inputs">
+          <text>1 - </text>
+          <input 
+            type="number" 
+            value="{{config.maxNumber}}" 
+            bindinput="updateConfig"
+            data-field="maxNumber"
+            class="number-input small"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view class="config-group">
+      <view class="config-item">
+        <text class="label">每行题数</text>
+        <picker 
+          range="{{['2题', '3题', '4题', '5题']}}" 
+          value="{{config.columns - 2}}"
+          bindchange="onColumnsChange"
+        >
+          <view class="picker">{{config.columns}}题</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预览区域 -->
+  <view class="preview-panel">
+    <view class="panel-header">
+      <text class="panel-title">
+        预览 - 共{{previewData.total}}题
+        <text wx:if="{{showPageInfo}}" class="page-info">
+          (题目: 1-{{previewData.problemPages}}页, 答案: {{previewData.answerStartPage}}页起)
+        </text>
+      </text>
+      <view class="header-actions">
+        <button class="action-btn" bindtap="togglePageInfo">
+          {{showPageInfo ? '隐藏' : '显示'}}页数
+        </button>
+        <view class="mode-switch">
+          <button 
+            class="mode-btn {{previewMode === 'problems' ? 'active' : ''}}"
+            bindtap="switchPreviewMode"
+            data-mode="problems"
+          >
+            题目
+          </button>
+          <button 
+            class="mode-btn {{previewMode === 'answers' ? 'active' : ''}}"
+            bindtap="switchPreviewMode"
+            data-mode="answers"
+          >
+            答案
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="preview-content">
+      <view wx:if="{{generating}}" class="loading">
+        <text>题目生成中...</text>
+      </view>
+      
+      <view wx:else class="preview-section">
+        <!-- 题目预览 -->
+        <view wx:if="{{previewMode === 'problems'}}" class="problems-preview">
+          <view class="preview-header">
+            <text class="preview-title">题目部分 (第1-{{previewData.problemPages}}页)</text>
+            <text class="preview-subtitle">共{{previewData.total}}题 - 请在下方空白处答题</text>
+          </view>
+          <view class="problems-grid">
+            <view class="problem-row" wx:for="{{previewData.problems}}" wx:key="index">
+              <view class="problem-item" wx:for="{{item}}" wx:key="id">
+                <text class="problem-number">{{item.id}}.</text>
+                <text class="problem-expression">{{item.expression}}</text>
+                <text class="problem-answer hide">____</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 答案预览 -->
+        <view wx:else class="answers-preview">
+          <view class="preview-header">
+            <text class="preview-title">答案部分 (第{{previewData.answerStartPage}}页起)</text>
+            <text class="preview-subtitle">共{{previewData.total}}题 - 批改参考</text>
+          </view>
+          <view class="problems-grid answers">
+            <view class="problem-row" wx:for="{{previewData.answers}}" wx:key="index">
+              <view class="problem-item" wx:for="{{item}}" wx:key="id">
+                <text class="problem-number">{{item.id}}.</text>
+                <text class="problem-expression">{{item.expression}}</text>
+                <text class="problem-answer show">{{item.answer}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 隐藏的canvas -->
+  <view wx:if="{{showCanvas}}" style="position: fixed; left: -10000px; top: -10000px; width: 794px; height: 1123px;">
+    <canvas 
+      id="mathCanvas" 
+      type="2d" 
+      style="width: 794px; height: 1123px;"
+    ></canvas>
+  </view>
+
+  <!-- 进度显示 -->
+  <view wx:if="{{generatingImages}}" class="progress-section">
+    <view class="progress-bar">
+      <view class="progress-inner" style="width: {{imageProgress}}%"></view>
+    </view>
+    <text class="progress-text">生成进度: {{imageProgress}}%</text>
+  </view>
+
+  <!-- 生成的图片显示区域 -->
+  <view wx:if="{{showGeneratedImages && generatedImages.length > 0}}" class="images-section">
+    <view class="section-header">
+      <text class="section-title">生成的图片 ({{generatedImages.length}}张)</text>
+      <view class="header-actions">
+        <button class="action-btn small" bindtap="saveAllImagesToAlbum">
+          💾 保存全部
+        </button>
+      </view>
+    </view>
+
+    <!-- 图片导航和显示 -->
+    <view class="image-viewer">
+      <!-- 图片导航 -->
+      <view class="image-nav">
+        <button class="nav-btn" bindtap="switchImage" data-direction="prev">◀ 上一张</button>
+        <text class="nav-info">第 {{currentImageIndex + 1}} / {{generatedImages.length}} 张</text>
+        <button class="nav-btn" bindtap="switchImage" data-direction="next">下一张 ▶</button>
+      </view>
+
+      <!-- 当前图片显示 -->
+      <view class="current-image-container">
+        <image 
+          src="{{generatedImages[currentImageIndex]}}" 
+          class="current-image"
+          mode="widthFix"
+          bindtap="previewCurrentImage"
+        />
+        <view class="image-info">
+          <text class="image-type">{{currentImageIndex < generatedImages.length / 2 ? '题目' : '答案'}}页</text>
+          <text class="image-page">第 {{currentImageIndex % (generatedImages.length / 2) + 1}} 页</text>
+        </view>
+      </view>
+
+      <!-- 图片操作按钮 -->
+      <view class="image-actions">
+        <button class="action-btn secondary" bindtap="saveCurrentImage">
+          💾 保存本张
+        </button>
+        <button class="action-btn primary" bindtap="previewCurrentImage">
+          🔍 查看大图
+        </button>
+      </view>
+
+      <!-- 缩略图导航 -->
+      <view class="thumbnails">
+        <view 
+          wx:for="{{generatedImages}}" 
+          wx:key="index"
+          class="thumbnail-item {{index === currentImageIndex ? 'active' : ''}}"
+          bindtap="goToImage"
+          data-index="{{index}}"
+        >
+          <image src="{{item}}" class="thumbnail-image" mode="aspectFill" />
+          <text class="thumbnail-label">{{index < generatedImages.length / 2 ? '题' : '答'}}{{index % (generatedImages.length / 2) + 1}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-bar">
+    <button class="btn regenerate-btn" bindtap="generateProblems" loading="{{generating}}">
+      🔄 重新生成
+    </button>
+    <button class="btn export-btn" bindtap="generateImages" loading="{{generatingImages}}">
+      {{generatingImages ? '生成中...' : '🖼️ 生成A4图片'}}
+    </button>
+  </view>
+</view>
