@@ -1,0 +1,15 @@
+
+
+.problem-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  .item {
+    flex: 1 1 calc(50% - 10px); 
+    min-width: 0; 
+    box-sizing: border-box;
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+  }
+}

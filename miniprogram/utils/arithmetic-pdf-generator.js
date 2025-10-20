@@ -6,11 +6,12 @@ class ArithmeticPDFGenerator {
   static generateImage(pageInstance, problems, options = {}) {
     return new Promise((resolve, reject) => {
       const {
-        title = '口算练习题',
+        title = '练习题',
         showAnswers = false,
         pageNumber = 1,
         totalPages = 1,
-        columns = 4
+        columns = 4,
+        rowSpacing=1,
       } = options;
 
       // 使用页面中的canvas
@@ -61,7 +62,7 @@ class ArithmeticPDFGenerator {
           const margin = 40;
           const contentWidth = width - 2 * margin;
           const colWidth = contentWidth / columns;
-          const lineHeight = 50; // 行高
+          const lineHeight = 50*rowSpacing; // 行高
           let y = 140; // 起始Y坐标
 
           problems.forEach((problem, index) => {
@@ -71,32 +72,32 @@ class ArithmeticPDFGenerator {
             const currentY = y + row * lineHeight;
 
             // 检查是否需要换页（在绘制前检查）
-            if (currentY + lineHeight > height - 60) {
+            if (currentY + lineHeight > height - 10) {
               // 如果超出页面，应该分页处理，这里先简单处理
               console.warn('题目超出页面范围，需要分页');
             }
 
             let text = '';
             if (showAnswers) {
-              text = `${problem.id}. ${problem.expression}${problem.answer}`;
+              text = `${index+1}. ${problem.problem}${problem.answer}`;
               ctx.fillStyle = '#2e7d32'; // 答案用绿色
             } else {
-              text = `${problem.expression}____`;
+              text = `${problem.problem}____`;
               ctx.fillStyle = '#333333'; // 题目用黑色
             }
 
             // 绘制题目编号（灰色，较小）
             ctx.fillStyle = '#666666';
             ctx.font = '16px "Microsoft YaHei"';
-            ctx.fillText(`${problem.id}.`, x, currentY);
+            ctx.fillText(`${index+1}.`, x, currentY);
             
             // 绘制题目内容
             ctx.fillStyle = showAnswers ? '#2e7d32' : '#333333';
             ctx.font = '20px "Microsoft YaHei"';
-            const textWidth = ctx.measureText(`${problem.id}. `).width;
+            const textWidth = ctx.measureText(`${index+1}. `).width;
             ctx.fillText(showAnswers ? 
-              `${problem.expression}${problem.answer}` : 
-              `${problem.expression}`, 
+              `${problem.problem}${problem.answer}` : 
+              `${problem.problem}`, 
               x + textWidth, currentY);
           });
 
@@ -104,7 +105,7 @@ class ArithmeticPDFGenerator {
           ctx.font = '14px "Microsoft YaHei"';
           ctx.fillStyle = '#999999';
           ctx.textAlign = 'center';
-          ctx.fillText(`生成时间: ${new Date().toLocaleDateString()} • 小学生口算练习`, width / 2, height - 30);
+          ctx.fillText(`${new Date().toLocaleDateString()} • ${title}`, width / 2, height - 30);
 
           // 绘制边框（可选）
           ctx.strokeStyle = '#e0e0e0';
@@ -133,11 +134,11 @@ class ArithmeticPDFGenerator {
   static generateAllImages(pageInstance, problems, options) {
     return new Promise(async (resolve, reject) => {
       try {
-        const { columns = 4 } = options;
+        const { columns = 4,rowSpacing=1 } = options;
         const allImages = [];
         
         // 计算每页能放多少题目
-        const problemsPerPage = this.calculateProblemsPerPage(columns);
+        const problemsPerPage = this.calculateProblemsPerPage(columns,rowSpacing);
         
         // 分页处理
         const totalPages = Math.ceil(problems.length / problemsPerPage);
@@ -207,10 +208,10 @@ class ArithmeticPDFGenerator {
   /**
    * 计算每页题目数量
    */
-  static calculateProblemsPerPage(columns) {
+  static calculateProblemsPerPage(columns,rowSpacing) {
     // A4纸可用的行数
-    const usableHeight = 1123 - 140 - 60; // 总高度 - 标题区域 - 底部区域
-    const lineHeight = 50; // 每行高度
+    const usableHeight = 1123 - 140 - 10; // 总高度 - 标题区域 - 底部区域
+    const lineHeight = 50*rowSpacing; // 每行高度
     const rowsPerPage = Math.floor(usableHeight / lineHeight);
     
     return rowsPerPage * columns;
@@ -260,9 +261,9 @@ class ArithmeticPDFGenerator {
    * 生成预览数据
    */
   static generatePreview(problems, options = {}) {
-    const { showAnswers = false, columns = 4 } = options;
+    const { showAnswers = false, columns = 4,rowSpacing=1 } = options;
     
-    const problemsPerPage = this.calculateProblemsPerPage(columns);
+    const problemsPerPage = this.calculateProblemsPerPage(columns,rowSpacing);
     const problemPages = Math.ceil(problems.length / problemsPerPage);
     const answerStartPage = problemPages + 1;
     
@@ -285,8 +286,8 @@ class ArithmeticPDFGenerator {
       const row = problems.slice(i, i + columns).map(problem => ({
         ...problem,
         display: showAnswers ? 
-          `${problem.expression}${problem.answer}` : 
-          `${problem.expression}____`
+          `${problem.problem}${problem.answer}` : 
+          `${problem.problem}____`
       }));
       rows.push(row);
     }

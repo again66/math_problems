@@ -14,7 +14,8 @@ Page({
     errorShake: false,
     wrongQuestions: [],
     feedbackMessage: "",
-    showWherePage: 0
+    showWherePage: 0,
+    problemList:[],
   },
   startTest(e) {
     this.setData({
@@ -101,6 +102,22 @@ Page({
       currentProblem: "请选择难度开始练习"
     });
   }, 
+  beginPrint(e){
+    this.setData({
+      currentRange:e.detail.range,
+      currentTotal:e.detail.total,
+    });
+    var pros = []
+    for (let index = 0; index < this.data.currentTotal; index++) {
+      pros.push(getAddSubProblem(this.data.currentRange))      
+    }
+    console.log(pros)
+    this.setData({
+      problemList:pros,
+      showWherePage:3
+    })
+  },
+ 
   /**
   * 用户点击右上角分享
   */

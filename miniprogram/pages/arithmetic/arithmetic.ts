@@ -1,13 +1,12 @@
 // pages/arithmetic/arithmetic.js
-const ArithmeticGenerator = require('../../utils/arithmetic-generator.js');
 const ArithmeticPDFGenerator = require('../../utils/arithmetic-pdf-generator.js');
 
 Page({
   data: {
     // 配置参数
     config: {
-      problemCount: 100,
-      maxNumber: 100,
+      title:"练习题",
+      rowSpacing:1,//行间距50*
       lineSpacing: 2,
       fontSize: 14,
       columns: 3
@@ -20,19 +19,29 @@ Page({
       problemPages: 0,
       answerStartPage: 0
     },
-    generating: false,
-    previewMode: 'problems',
-    showPageInfo: true,
     generatingImages: false,
     imageProgress: 0,
     generatedImages: [],
     showCanvas: false,
-    // 新增：控制图片显示
     showGeneratedImages: false,
     currentImageIndex: 0
   },
 
-  onLoad() {
+  onLoad(option) {
+    const _p = JSON.parse(wx.getStorageSync("problemList"))
+    console.log(wx.getStorageSync("paperTitle"))
+    const paperTitle = wx.getStorageSync("paperTitle")?wx.getStorageSync("paperTitle"):"练习题"
+    this.setData({
+      problems:_p,
+      'config.title':paperTitle
+    })
+    console.log(this.data.problems)
+    if(option.column&&option.rowGap){
+      this.setData({
+        "config.rowSpacing":option.rowGap,
+        "config.columns":option.column,
+      })
+    }
     this.generateProblems();
   },
 
@@ -42,48 +51,25 @@ Page({
     }, 1000);
   },
 
+  changeTitle(e){
+    this.setData({'config.title':e.detail.value})
+  },
   // 生成题目
-  generateProblems() {
-    const { problemCount, maxNumber } = this.data.config;
-    
-    this.setData({ generating: true });
-    
-    setTimeout(() => {
-      const problems = ArithmeticGenerator.generateProblems(problemCount, maxNumber);
-      const previewData = ArithmeticPDFGenerator.generatePreview(problems, this.data.config);
-      
+  generateProblems() {    
+    setTimeout(() => {      
+      const previewData = ArithmeticPDFGenerator.generatePreview(this.data.problems, this.data.config);
       this.setData({
-        problems,
         previewData,
-        generating: false,
         generatedImages: [],
         showGeneratedImages: false // 重置图片显示状态
       });
     }, 300);
   },
 
-  // 更新配置
-  updateConfig(e) {
-    const { field } = e.currentTarget.dataset;
-    let value = e.detail.value;
-    
-    if (field === 'problemCount' || field === 'maxNumber' || field === 'fontSize' || field === 'columns') {
-      value = parseInt(value) || 1;
-    } else if (field === 'lineSpacing') {
-      value = parseFloat(value) || 1.0;
-    }
-    
-    this.setData({
-      [`config.${field}`]: value
-    }, () => {
-      this.generateProblems();
-    });
-  },
-
   // 生成图片
   async generateImages() {
     const { problems, config } = this.data;
-    
+    wx.setStorageSync("paperTitle",config.title)
     if (problems.length === 0) {
       wx.showToast({
         title: '请先生成题目',
@@ -288,16 +274,6 @@ Page({
         current: generatedImages[currentImageIndex]
       });
     }
-  },
-
-  // 切换预览模式
-  switchPreviewMode(e) {
-    const mode = e.currentTarget.dataset.mode;
-    this.setData({ previewMode: mode });
-  },
-
-  togglePageInfo() {
-    this.setData({ showPageInfo: !this.data.showPageInfo });
   },
 
   setQuickCount(e) {

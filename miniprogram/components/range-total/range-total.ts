@@ -36,5 +36,9 @@ Component({
     startTest(){
       this.triggerEvent('beginTest', { total: this.data.currentTotal,range: this.data.currentRange })
     }
+    ,
+    startPrint(){
+      this.triggerEvent('beginPrint', { total: this.data.currentTotal,range: this.data.currentRange })
+    }
   }
 })

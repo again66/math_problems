@@ -1,9 +1,39 @@
 /* 添加新的样式 */
+.container{
+  width: 100vw;
+  padding: 15px 0;
+}
+
+.panel-title {
+  padding: 0 24rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.set-title{
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+.set-title input {
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  font-size: 28rpx;
+  margin-top: 12rpx;
+  transition: border-color 0.3s ease;
+}
 .images-section {
   background: white;
-  margin: 20rpx;
   border-radius: 16rpx;
-  padding: 30rpx;
+  padding: 5rpx;
   box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.08);
 }
 
@@ -40,8 +70,9 @@
   color: white;
   border: none;
   border-radius: 8rpx;
-  padding: 16rpx 24rpx;
+  padding: 16rpx 10rpx;
   font-size: 24rpx;
+  width: 130rpx !important;
 }
 
 .nav-info {
@@ -138,21 +169,4 @@
   font-size: 20rpx;
   color: #666;
   margin-top: 8rpx;
-}
-
-/* 响应式调整 */
-@media (max-width: 375px) {
-  .image-nav {
-    flex-direction: column;
-    gap: 16rpx;
-  }
-  
-  .thumbnails {
-    gap: 12rpx;
-  }
-  
-  .thumbnail-image {
-    width: 60rpx;
-    height: 80rpx;
-  }
 }

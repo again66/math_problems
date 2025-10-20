@@ -56,6 +56,44 @@ export const getAddSubProblem = (range: number) => {
 }
 
 /**
+ * 生成加减法竖式计算
+ */
+export const getAddSubProblemShu = () => {
+  const isAddition = Math.random() > 0.5;
+  let num1, num2, _currentProblem, _correctAnswer,_operator;
+  // 生成2-4位随机数（10-9999）
+  const getRandomNum = () => Math.floor(Math.random() * (9999 - 10 + 1)) + 10;
+  num1 = getRandomNum();
+  num2 = getRandomNum();
+
+  if (isAddition) {
+    _operator = "+"
+    _currentProblem = `${num1} + ${num2} = `;
+    _correctAnswer = num1 + num2;
+  } else {
+    _operator = "-"
+     // 确保减法结果不为负
+    if (num1 < num2) {
+      var _n = num1
+      num1 = num2
+      num2 = _n
+    }
+    _currentProblem = `${num1} - ${num2} = `;
+    _correctAnswer = num1 - num2;
+
+    console.log(_currentProblem,_correctAnswer)
+  }
+  const _correctAnswerArray = String(_correctAnswer).split('').map(Number).reverse();
+  return {
+    problem : _currentProblem,
+    answer : _correctAnswer,
+    answerArray : _correctAnswerArray,
+    num1Array : String(num1).split('').map(Number),
+    num2Array : String(num2).split('').map(Number),
+    operator:_operator
+  }
+}
+/**
  * 生成算式
  * 生成连加连减的算式
  * @param range 生成数字的范围

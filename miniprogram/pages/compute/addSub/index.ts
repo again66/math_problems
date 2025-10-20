@@ -1,5 +1,5 @@
 // pages/compute/addSub/index.ts
-import { isValidNumber } from '../../../utils/util';
+import { isValidNumber,getAddSubProblemShu } from '../../../utils/util';
 import { MathOperationAnalyzer, AdditionStep, SubtractionStep } from '../../../utils/MathOperationAnalyzer';
 Page({
 
@@ -24,7 +24,8 @@ Page({
     processOfProblemIndex : 0,
     processSteps:[],
     currentStep:{},
-    errorShake:false
+    errorShake:false,
+    problemList:[]
   },
 
   startTest(e) {    
@@ -60,43 +61,15 @@ Page({
     });
   },
   generateNewProblem() {
-    const isAddition = Math.random() > 0.5;
-    let num1, num2, _currentProblem, _correctAnswer,_operator;
-    // 生成2-4位随机数（10-9999）
-    const getRandomNum = () => Math.floor(Math.random() * (9999 - 10 + 1)) + 10;
-    num1 = getRandomNum();
-    num2 = getRandomNum();
-
-    if (isAddition) {
-      _operator = "+"
-      _currentProblem = `${num1} + ${num2} = `;
-      _correctAnswer = num1 + num2;
-    } else {
-      _operator = "-"
-       // 确保减法结果不为负
-      if (num1 < num2) {
-        var _n = num1
-        num1 = num2
-        num2 = _n
-      }
-      _currentProblem = `${num1} - ${num2} = `;
-      _correctAnswer = num1 - num2;
-
-      console.log(_currentProblem,_correctAnswer)
-    }
-
-    const _num1Array = String(num1).split('').map(Number);
-    const _num2Array = String(num2).split('').map(Number);
-    const _correctAnswerArray = String(_correctAnswer).split('').map(Number).reverse();
-    
+    const p = getAddSubProblemShu()
     this.setData({
-      currentProblem: _currentProblem,
-      correctAnswer: _correctAnswer,
-      num1Array: _num1Array,
-      num2Array: _num2Array,
-      correctAnswerArray: _correctAnswerArray,
-      userAnswerArray: _correctAnswerArray.map(() => null),
-      operator: _operator
+      currentProblem: p.problem,
+      correctAnswer: p.answer,
+      num1Array: p.num1Array,
+      num2Array: p.num2Array,
+      correctAnswerArray: p.answerArray,
+      userAnswerArray: p.answer.map(() => null),
+      operator: p.operator
     });
   },
 
@@ -197,6 +170,35 @@ Page({
         processOfProblemIndex:this.data.processOfProblemIndex+1
       })
   }, 
+
+  beginPrint(e){
+    this.setData({
+      currentTotal:e.detail.total,
+    });
+    var pros = []
+    for (let index = 0; index < this.data.currentTotal; index++) {
+      pros.push(getAddSubProblemShu())      
+    }
+    console.log(pros)
+    this.setData({
+      problemList:pros,
+      showWherePage:3
+    })
+  },
+  goPrint(){
+    if(this.data.problemList && this.data.problemList.length>0){
+      wx.setStorageSync("problemList",JSON.stringify(this.data.problemList))
+      wx.navigateTo({
+        url: '/pages/arithmetic/arithmetic'
+      })
+    }else{
+      wx.showToast({
+        title: '先生成题目',
+        icon: 'error',
+        duration: 2000
+      })
+    }
+  },
   // onShareAppMessage() {
   //   return {
   //     title: '一起来练习加法竖式吧！',

@@ -19,4 +19,5 @@
   </view>
 
   <button id="startTest" type="primary" bindtap="startTest">我们开始吧</button>
+  <button id="startPrint" bindtap="startPrint">我要打印题目</button>
 </view>

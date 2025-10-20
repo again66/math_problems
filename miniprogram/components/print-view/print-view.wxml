@@ -1,0 +1,9 @@
+<view>
+  <view class="problem-list">
+    <view class="item" style="flex: 1 1 {{minWidth}}; min-width: {{minWidth}};"
+    wx:for="{{problemList}}"
+    >{{item.problem}}{{item.answer}}</view>
+  </view>
+  <button id="startPrint" type="primary" bindtap="rePrint">重新生成</button>
+  <button id="goPrint" type="primary" bindtap="goPrint">生成好了</button>
+</view>
