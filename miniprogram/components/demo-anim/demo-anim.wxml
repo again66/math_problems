@@ -1,0 +1,37 @@
+<view class="vertical-calculation">
+  <!-- Canvas 绘制区域 -->
+  <view class="canvas-container">
+    <canvas 
+      id="calculationCanvas" 
+      canvas-id="calculationCanvas"
+      class="calculation-canvas"
+      style="width: 650rpx; height: 500rpx;"
+    ></canvas>
+  </view>
+  
+  <!-- 控制按钮 -->
+  <view class="control-buttons">
+    <button 
+      class="btn next-btn" 
+      bindtap="nextStep" 
+      disabled="{{!hasMore || isCalculating}}"
+    >
+      {{isCalculating ? '计算中...' : '下一步'}}
+    </button>
+    <button class="btn reset-btn" bindtap="resetCalculation">重置</button>
+  </view>
+  
+  <!-- 步骤说明 -->
+  <view class="steps-info">
+    <view class="steps-title">计算步骤说明</view>
+    <scroll-view class="steps-list" scroll-y>
+      <view class="step-item {{index === steps.length - 1 ? 'current' : ''}}" 
+            wx:for="{{steps}}" wx:key="*this">
+        {{item}}
+      </view>
+      <view class="final-result" wx:if="{{finalResult}}">
+        <text class="final-text">{{finalResult}}</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

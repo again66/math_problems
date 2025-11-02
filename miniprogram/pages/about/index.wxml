@@ -1,3 +1,12 @@
+<view class="container">
+  <demo-anim
+    num1="{{7103}}" 
+    num2="{{278}}" 
+    operation="subtraction"
+    bind:stepchange="onStepChange"
+    bind:reset="onReset"
+  />
+</view>
 <text>
   程序名字叫《芒果学习工具》，芒果是我的宝贝女儿，刚上一年级。家长会上，听数学老师提到虽然学校不统一布置作业，但建议孩子们平时多练习口算，打好基础。起初，我也在网上找了一些口算题资源，想下载打印给孩子练习，但不少资料要么限制下载，要么内容不够灵活，操作起来不太方便。
 </text>

@@ -75,5 +75,12 @@ Page({
         wx.showToast({title:"复制成功"})
       }
     })
+  },
+  onStepChange(e) {
+    console.log('步骤变化:', e.detail);
+  },
+  
+  onReset() {
+    console.log('计算已重置');
   }
 })
