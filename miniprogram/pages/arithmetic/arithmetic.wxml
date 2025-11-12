@@ -2,99 +2,85 @@
 <view class="container">
   <!-- 页码展示 -->
   <text class="panel-title">
-        共{{previewData.total}}题：(题目: 1-{{previewData.problemPages}}页, 答案: {{previewData.answerStartPage}}页起)
+    共{{previewData.total}}题：(题目: 1-{{previewData.problemPages}}页, 答案: {{previewData.answerStartPage}}页起)
   </text>
   <!-- 设置标题 -->
   <view class='set-item'>
     <view class="set-label">设置标题</view>
-    <input value="{{config.title}}" bindinput="changeTitle"/>
+    <input value="{{config.title}}" bindinput="changeTitle" />
   </view>
   <!-- 显示设置 -->
   <view class='set-item'>
-    <switch checked="{{config.showNum}}" bindchange="showNumChange" type="checkbox"/><view class="set-label">显示序号</view>
-    <switch checked="{{config.showPage}}" bindchange="showPageChange" type="checkbox"/><view class="set-label">显示页数</view>
+    <switch checked="{{config.showNum}}" bindchange="showNumChange" type="checkbox" />
+    <view class="set-label">显示序号</view>
+    <switch checked="{{config.showPage}}" bindchange="showPageChange" type="checkbox" />
+    <view class="set-label">显示页数</view>
   </view>
 
   <!-- 行距 -->
   <view class='set-item'>
     <view class="set-label">行距</view>
     <view style="flex: 5;">
-      <slider bindchange="rowSpacingChange" min="1" max="5" value="{{config.rowSpacing}}" show-value/>
-    </view>    
+      <slider bindchange="rowSpacingChange" min="1" max="5" value="{{config.rowSpacing}}" show-value />
+    </view>
   </view>
 
-    <!-- 间距 -->
-    <view class='set-item'>
+  <!-- 间距 -->
+  <view class='set-item'>
     <view class="set-label">几列</view>
-    <view style="flex: 5;">
-      <button size="mini" type="{{config.columns==2?'primary':''}}" bind:tap="columnsChange" data-value="2">2（宽松）</button>
-      <button size="mini" type="{{config.columns==3?'primary':''}}" bind:tap="columnsChange" data-value="3">3（标准）</button>
-      <button size="mini" type="{{config.columns==4?'primary':''}}" bind:tap="columnsChange" data-value="4">4（拥挤）</button>
-    </view>    
+    <view style="flex: 1 0 auto;">
+      <button size="mini" type="{{config.columns==2?'primary':''}}" bind:tap="columnsChange" data-value="2">2 (宽松)</button>
+      <button size="mini" type="{{config.columns==3?'primary':''}}" bind:tap="columnsChange" data-value="3">3 (标准)</button>
+      <button size="mini" type="{{config.columns==4?'primary':''}}" bind:tap="columnsChange" data-value="4">4 (拥挤)</button>
+    </view>
   </view>
 
 
   <!-- 操作按钮 -->
   <view class="action-bar">
-    <button class="btn export-btn" bindtap="generateImages" loading="{{generatingImages}}">
+    <button class="btn export-btn" type="primary" bindtap="generateImages" loading="{{generatingImages}}">
       {{generatingImages ? imageProgress+'%' : '生成A4图片'}}
     </button>
   </view>
-  
+
 </view>
-  <!-- 隐藏的canvas -->
-  <view wx:if="{{showCanvas}}" style="position: fixed; left: -10000px; top: -10000px; width: 794px; height: 1123px;">
-    <canvas 
-      id="mathCanvas" 
-      type="2d" 
-      style="width: 794px; height: 1123px;"
-    ></canvas>
-  </view>
+<!-- 隐藏的canvas -->
+<view wx:if="{{showCanvas}}" style="position: fixed; left: -10000px; top: -10000px; width: 794px; height: 1123px;">
+  <canvas id="mathCanvas" type="2d" style="width: 794px; height: 1123px;"></canvas>
+</view>
 
-  <!-- 生成的图片显示区域 -->
-  <view wx:if="{{showGeneratedImages && generatedImages.length > 0}}" class="images-section">
-    <!-- 图片导航和显示 -->
-    <view class="image-viewer">
-      <!-- 图片导航 -->
-      <view class="image-nav">
-        <button class="nav-btn" bindtap="switchImage" data-direction="prev">◀ </button>
-        <text class="nav-info">第 {{currentImageIndex + 1}} / {{generatedImages.length}} 张</text>
-        <button class="nav-btn" bindtap="switchImage" data-direction="next"> ▶</button>
+<!-- 生成的图片显示区域 -->
+<view wx:if="{{showGeneratedImages && generatedImages.length > 0}}" class="images-section">
+  <!-- 图片导航和显示 -->
+  <view class="image-viewer">
+    <!-- 图片导航 -->
+    <view class="image-nav">
+      <button class="nav-btn" bindtap="switchImage" data-direction="prev">◀</button>
+      <text class="nav-info">第 {{currentImageIndex + 1}} / {{generatedImages.length}} 张</text>
+      <button class="nav-btn" bindtap="switchImage" data-direction="next">▶</button>
+    </view>
+
+    <!-- 当前图片显示 -->
+    <view class="current-image-container">
+      <image src="{{generatedImages[currentImageIndex]}}" class="current-image" mode="widthFix" bindtap="previewCurrentImage" />
+      <view class="image-info">
+        <text class="image-type">{{currentImageIndex < generatedImages.length / 2 ? '题目' : '答案'}}页</text>
+        <text class="image-page">第 {{currentImageIndex % (generatedImages.length / 2) + 1}} 页</text>
       </view>
+    </view>
 
-      <!-- 当前图片显示 -->
-      <view class="current-image-container">
-        <image 
-          src="{{generatedImages[currentImageIndex]}}" 
-          class="current-image"
-          mode="widthFix"
-          bindtap="previewCurrentImage"
-        />
-        <view class="image-info">
-          <text class="image-type">{{currentImageIndex < generatedImages.length / 2 ? '题目' : '答案'}}页</text>
-          <text class="image-page">第 {{currentImageIndex % (generatedImages.length / 2) + 1}} 页</text>
-        </view>
-      </view>
+    <!-- 图片操作按钮 -->
+    <view class="image-actions">
+      <button class="action-btn" type="primary" bindtap="saveCurrentImage">保存本张</button>
+      <button class="action-btn" type="primary" bindtap="saveAllImagesToAlbum">保存全部</button>
+    </view>
 
-      <!-- 图片操作按钮 -->
-      <view class="image-actions">
-        <button class="action-btn secondary" bindtap="saveCurrentImage">保存本张</button>
-        <button class="action-btn " bindtap="saveAllImagesToAlbum">保存全部</button>
-      </view>
-
-      <!-- 缩略图导航 -->
-      <view class="thumbnails">
-        <view 
-          wx:for="{{generatedImages}}" 
-          wx:key="index"
-          class="thumbnail-item {{index === currentImageIndex ? 'active' : ''}}"
-          bindtap="goToImage"
-          data-index="{{index}}"
-        >
-          <image src="{{item}}" class="thumbnail-image" mode="aspectFill" />
-          <text class="thumbnail-label">{{index < generatedImages.length / 2 ? '题' : '答'}}{{index % (generatedImages.length / 2) + 1}}</text>
-        </view>
+    <!-- 缩略图导航 -->
+    <view class="thumbnails">
+      <view wx:for="{{generatedImages}}" wx:key="index" class="thumbnail-item {{index === currentImageIndex ? 'active' : ''}}" bindtap="goToImage" data-index="{{index}}">
+        <image src="{{item}}" class="thumbnail-image" mode="aspectFill" />
+        <text class="thumbnail-label">{{index < generatedImages.length / 2 ? '题' : '答'}}{{index % (generatedImages.length / 2) + 1}}</text>
       </view>
     </view>
   </view>
-
+</view>

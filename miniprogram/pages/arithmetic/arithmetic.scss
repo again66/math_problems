@@ -1,6 +1,9 @@
 /* 添加新的样式 */
+page{
+  padding-top: 33px;
+  padding-bottom: 1em;
+}
 .container{
-  width: 100vw;
   padding: 15px 0;
   margin-bottom: 8rpx;
 }
@@ -18,19 +21,23 @@
   display: flex;
   margin: 30rpx;
   font-size: 32rpx;
+  align-items: center;
 }
 .set-label{
   color: #585a5c;
   margin-right: 25rpx;
+  font-weight: 700;
+  flex: 0 0 auto;
 }
 .set-item input {
   border-bottom: 1rpx solid #e0e0e0;
+  flex: 1 0 auto;
 }
 .images-section {
+  width: 95%;
+  margin: .5em auto;
   background: white;
   border-radius: 16rpx;
-  padding: 5rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.08);
 }
 
 .section-header {
@@ -62,12 +69,11 @@
 }
 
 .nav-btn {
-  background: #007aff;
-  color: white;
-  border: none;
-  border-radius: 8rpx;
-  padding: 16rpx 10rpx;
-  font-size: 24rpx;
+
+  color: #1aad19;
+  border: 1px solid;
+  border-radius: 10rpx;
+  padding: 10rpx 0rpx;
   width: 130rpx !important;
 }
 

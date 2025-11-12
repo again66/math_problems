@@ -1,16 +1,26 @@
 
-
+.print-view{
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
 .problem-list{
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  overflow: scroll;
+  height: 90%;
+  flex: 1;
+  align-content: baseline;
+
   .item {
     flex: 1 1 calc(50% - 10px); 
     min-width: 0; 
     box-sizing: border-box;
     background: #f0f0f0;
-    padding: 20px;
+    padding: 20rpx 20px;
     border-radius: 8px;
+    max-height: 3em;
   }
 }
 
@@ -18,4 +28,6 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 5px;
+  flex: 0;
+  padding-top: 1em;
 }
