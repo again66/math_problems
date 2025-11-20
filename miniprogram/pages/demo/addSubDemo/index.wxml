@@ -1,9 +1,20 @@
+ <!-- 复制元素的容器 -->
+<view class="clone-container">
+  <block wx:for="{{cloneElements}}" wx:key="id">
+    <text 
+      class="clone-text {{item.animationClass}}" 
+      style="left: {{item.startX}}px; top: {{item.startY}}px;"
+      data-id="{{item.id}}"
+    >{{item.text}}</text>
+  </block>
+</view>
+ 
  <!-- 竖式计算区域 -->
  <view class="vertical-equation">
     <!--计算动画演示 -->
     
     <view class="number-row result-step">
-        <view wx:for="{{processSteps}}" wx:key="index" class="digit-cell"><text>{{item.carryOut>0?item.carryOut:''}}</text><text>{{item.value}}</text></view>
+        <view wx:for="{{processSteps}}" wx:key="index" class="digit-cell"  id="res-{{index}}" ><text>{{item.carryOut>0?item.carryOut:''}}</text><text>{{item.value}}</text></view>
     </view>
     <!--数字1 -->
     <view class="number-row">

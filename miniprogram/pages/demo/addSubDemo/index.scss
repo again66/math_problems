@@ -56,3 +56,32 @@ margin-left: 10px; /* 间隔 */
 .result-input:focus {
   border-color: #e74c3c; box-shadow: 0 0 8px rgba(231, 76, 60, 0.3); transform: scale(1.05);
 }
+
+
+.clone-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+@keyframes moveAndFade {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.clone-text.animated {
+  animation: moveAndFade 0.8s ease-in-out forwards;
+}
