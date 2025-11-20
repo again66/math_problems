@@ -11,7 +11,8 @@
     "pages/notebook/index",
     "pages/compute/mixMultip/index",
     "pages/compute/multipEquation/index",
-    "pages/arithmetic/arithmetic"
+    "pages/arithmetic/arithmetic",
+    "pages/demo/addSubDemo/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",
