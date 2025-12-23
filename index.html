@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数学学习工具 · 微信小程序</title>
+    <meta
+      name="description"
+      content="数学学习工具是一款面向孩子的微信小程序，支持加减乘除、错题打印等功能，帮助在家也能高效刷题。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./vercel-site.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <div class="hero__content">
+        <p class="hero__eyebrow">WeChat Mini Program</p>
+        <h1>数学学习工具</h1>
+        <p class="hero__subtitle">
+          针对低年级口算训练打造的微信小程序，支持自动出题、错题本记录、打印练习单等功能，帮助孩子在家高效巩固数学能力。
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#download">立即开始</a>
+          <a class="btn btn--ghost" href="#features">查看功能</a>
+        </div>
+        <ul class="hero__highlights">
+          <li>TS + SCSS 开发</li>
+          <li>纯本地体验，不采集隐私</li>
+          <li>家长可自定义题型</li>
+        </ul>
+      </div>
+      <div class="hero__preview">
+        <div class="device-frame">
+          <img src="./app-code.jpg" alt="数学学习工具小程序体验码" />
+        </div>
+        <p class="caption">微信扫码体验小程序</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="features">
+        <div class="section__header">
+          <p class="eyebrow">核心亮点</p>
+          <h2>针对家庭学习场景设计</h2>
+          <p>
+            结合真实使用需求打造的轻量工具，支持不同年级的口算训练，并且提供进阶的错题管理与打印能力。
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="card">
+            <h3>智能出题</h3>
+            <p>一键生成加减乘除与混合运算题，可配置题量、进位/借位、数值区间等参数。</p>
+          </article>
+          <article class="card">
+            <h3>错题本</h3>
+            <p>内置错题回顾组件，自动记录做错的题目，方便针对性复习。</p>
+          </article>
+          <article class="card">
+            <h3>打印支持</h3>
+            <p>网页端可导出打印版题目，适合离线练习或课堂发放。</p>
+          </article>
+          <article class="card">
+            <h3>动画激励</h3>
+            <p>提供趣味动效与 emoji 奖励，提升孩子做题积极性。</p>
+          </article>
+          <article class="card">
+            <h3>完全离线</h3>
+            <p>不采集、不存储个人数据，每次进入后按需配置题库即可。</p>
+          </article>
+          <article class="card">
+            <h3>开源共享</h3>
+            <p>完整源代码开放，可自行二次开发或搭建私有版本。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="workflow">
+        <div class="section__header">
+          <p class="eyebrow">使用流程</p>
+          <h2>3 步快速开始</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="steps__index">1</span>
+            <h3>微信扫码</h3>
+            <p>在微信中扫描页面上的体验码或搜索“小学数学学习工具”进入小程序。</p>
+          </li>
+          <li>
+            <span class="steps__index">2</span>
+            <h3>配置题目</h3>
+            <p>选择需要的题型、题量和范围，系统会自动生成符合条件的题目。</p>
+          </li>
+          <li>
+            <span class="steps__index">3</span>
+            <h3>练习与复盘</h3>
+            <p>在线作答或打印练习单，错题自动进入错题本，随时复习。</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section" id="tech">
+        <div class="section__header">
+          <p class="eyebrow">技术栈</p>
+          <h2>TypeScript + SCSS + WeChat Mini Program</h2>
+          <p>
+            代码结构遵循微信小程序最佳实践，支持 TypeScript 类型提示与 Sass 预处理，易于维护与扩展。
+          </p>
+        </div>
+        <div class="tech-grid">
+          <div class="tech-card">
+            <h3>TypeScript</h3>
+            <p>严格的类型定义，降低逻辑错误，方便 IDE 智能提示。</p>
+          </div>
+          <div class="tech-card">
+            <h3>SCSS</h3>
+            <p>模块化样式组织，支持变量与混入，加速 UI 开发。</p>
+          </div>
+          <div class="tech-card">
+            <h3>可扩展架构</h3>
+            <p>组件化页面与工具类封装，方便添加新题型或改进交互。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="download">
+        <div class="section__header">
+          <p class="eyebrow">获取方式</p>
+          <h2>现在就体验</h2>
+          <p>微信扫码立即使用，或下载源码自行编译。欢迎 Star & PR 一起完善！</p>
+        </div>
+        <div class="cta">
+          <div>
+            <h3>源码仓库</h3>
+            <p>涵盖微信小程序完整代码、示例数据以及本文档站点。</p>
+            <a class="btn btn--primary" href="https://gitee.com/a597966/math_problems" target="_blank" rel="noreferrer">访问 Gitee</a>
+            <a class="btn btn--ghost" href="https://github.com/gaoxiangyang2022/math_problems" target="_blank" rel="noreferrer">访问 GitHub</a>
+          </div>
+          <div class="device-frame device-frame--small">
+            <img src="./app-code.jpg" alt="体验码" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> 数学学习工具 · 个人教育练习项目</p>
+      <div class="footer__links">
+        <a href="#top">返回顶部</a>
+        <a href="mailto:math-helper@example.com">联系作者</a>
+      </div>
+    </footer>
+
+    <script src="./vercel-site.js" defer></script>
+  </body>
+</html>
